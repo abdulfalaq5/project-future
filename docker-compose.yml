@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # ─────────────────────────────
+  # NestJS Application
+  # ─────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: ecg_app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 9701
+      DB_HOST: shared-prod-postgres
+      DB_PORT: 5432
+      DB_USER: msiserver
+      DB_PASS: Rubysa179596!
+      DB_NAME: future
+      DATABASE_URL: postgresql://msiserver:Rubysa179596!@shared-prod-postgres:5432/future?schema=public
+      SWAGGER_ENABLED: 'true'
+      SWAGGER_PATH: api/docs
+      APP_NAME: ECG-LMS-API
+      APP_VERSION: 1.0.0
+    ports:
+      - '9701:9701'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+    networks:
+      - infra_net
+
+networks:
+  infra_net:
+    external: true # PENTING! Gunakan network yang sudah ada
+    name: infra_net # Network untuk nginx dan cloudflare tunnel
