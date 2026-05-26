@@ -54,9 +54,9 @@ async function bootstrap() {
   // ─────────────────────────────────────────
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Strip unknown properties
+      whitelist: true,           // Strip unknown properties
       forbidNonWhitelisted: true, // Reject unknown properties
-      transform: true, // Auto-transform types
+      transform: true,           // Auto-transform types
       transformOptions: {
         enableImplicitConversion: true,
       },
@@ -88,13 +88,11 @@ async function bootstrap() {
 
   await app.listen(port);
 
-  logger.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  logger.log(`🚀 ${appName} v${appVersion}`);
-  logger.log(`📍 Environment  : ${nodeEnv}`);
-  logger.log(`🌐 Server       : http://localhost:${port}`);
-  logger.log(`❤️  Health       : http://localhost:${port}/health`);
-  logger.log(`📚 Swagger      : http://localhost:${port}/api/docs`);
-  logger.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  logger.log(`${appName} v${appVersion}`);
+  logger.log(`Environment  : ${nodeEnv}`);
+  logger.log(`Server       : http://localhost:${port}`);
+  logger.log(`Health       : http://localhost:${port}/health`);
+  logger.log(`Swagger      : http://localhost:${port}/api/docs`);
 }
 
 bootstrap();
